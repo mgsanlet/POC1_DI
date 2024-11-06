@@ -3,12 +3,14 @@ class MainView {
     #video = null;
     #captureButton = null;
     #progressSlider = null;
+    #imageContainer = null;
 
     constructor(controller) {
         this.#controller = controller;
         this.#video = document.getElementById('webcam');
         this.#captureButton = document.getElementById('captureButton');
         this.#progressSlider = document.getElementById('progressSlider');
+        this.#imageContainer = document.getElementById('imageContainer');
         this.initializeWebcam();
     }
 
@@ -35,6 +37,13 @@ class MainView {
     updateSlider(progress) {
         this.#progressSlider?.setAttribute('value', progress);
     }
+
+      displayCapturedImage(imageDataUrl) {
+            const img = document.createElement('img');
+            img.src = imageDataUrl;
+            this.#imageContainer.innerHTML = '';  // Limpia el contenedor antes de mostrar la nueva imagen
+            this.#imageContainer.appendChild(img);
+        }
 }
 
 export { MainView };
