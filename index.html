@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Deisy Pedraza, Mauro Mayorala, Mario G. Sánchez">
+    <title>Detección de Partes del Cuerpo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Sidebar -->
+<div id="sidebar">
+
+    <div><h2>Instrucciones de Uso</h2>
+    <ul class="instructions-list">
+        <li>1.Asegúrate de conceder permiso para el uso de la webcam.</li>
+        <li>2.Toma una foto para dar comienzo a la detección.</li>
+        <li>3.Verás la predicción y el porcentaje de certeza.</li>
+    </ul>
+    </div>
+
+    <!-- Footer con GitHub -->
+    <div id="sidebarFooter">
+        <p>Con tecnología <strong>Teachable Machine</strong> y <strong>TensorFlow</strong></p>
+        <p>2024/2025 - I.E.S. Albarregas - DAM 2B</p>
+        <a href="https://github.com/tu_usuario/tu_repositorio" target="_blank">
+            <img src="./img/github-mark-white.png" alt="GitHub Logo" width="25" height="25">
+        </a>
+    </div>
+</div>
+
+<!-- Contenido principal -->
+<main>
+    <!-- Título centrado en la parte derecha -->
+    <div id="main-header">
+        <h1>Detección de Partes del Cuerpo</h1>
+    </div>
+
+    <!-- Webcam y controles -->
+    <div class="webcam-container">
+        <video id="webcam" autoplay></video>
+    </div>
+
+    <div class="controls">
+        <button id="captureButton">Capturar Imagen</button>
+        <input type="range" id="progressSlider" min="0" max="100" value="0">
+    </div>
+</main>
+
+<script type="module" src="js/mainController.js"></script>
+</body>
+</html>

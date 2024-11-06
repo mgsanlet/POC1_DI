@@ -1,0 +1,125 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;  /* Organiza los elementos en fila: sidebar + main */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+/* Sidebar (con instrucciones y footer) */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sidebar h2 {
+    color: #4CAF50;
+}
+
+#sidebar p {
+
+}
+
+.instructions-list {
+    font-size: 14px;
+    margin: 10px 14px;
+    display: flex;
+    flex-direction: column; /* Coloca los ítems verticalmente */
+    gap: 20px; /* Espacio entre los elementos */
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el padding predeterminado */
+}
+
+#sidebarFooter {
+    margin-top: auto;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#sidebarFooter p {
+    font-size: 12px;
+}
+
+/* Main */
+main {
+    flex-grow: 1;  /* Ocupa el espacio restante */
+    padding-left: 260px; /* Espacio para el sidebar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+#main-header {
+    width: 100%;
+    height: 20%;  /* Altura similar a la del header anterior */
+    background-color: #4CAF50;  /* Color de fondo verde */
+    color: white;
+    display: flex;
+    justify-content: center; /* Centra el título horizontalmente */
+    align-items: center;     /* Centra el título verticalmente */
+}
+
+#main-header h1 {
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Webcam container */
+.webcam-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    height: 100%;
+}
+
+#webcam {
+    width: 60%;
+    max-width: 600px;
+    height: auto;
+    object-fit: cover;
+    border: 10px solid #4CAF50;
+    border-radius: 10px;
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#captureButton {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#captureButton:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+}
