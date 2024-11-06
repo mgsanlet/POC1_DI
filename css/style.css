@@ -81,22 +81,46 @@ main {
 }
 
 /* Webcam container */
-.webcam-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px;
-    height: 100%;
-}
+ .webcam-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: 30px;
+     position: relative;  /* Hace que los elementos dentro de este contenedor puedan ser posicionados sobre él */
+     height: 100%;
+ }
 
-#webcam {
-    width: 60%;
-    max-width: 600px;
-    height: auto;
-    object-fit: cover;
-    border: 10px solid #4CAF50;
-    border-radius: 10px;
-}
+ /* Video */
+ #webcam {
+     width: 60%;
+     max-width: 600px;
+     height: auto;
+     object-fit: cover;
+     border: 10px solid #4CAF50;
+     border-radius: 10px;
+ }
+
+ /* Contenedor de la imagen superpuesta */
+ #imageOverlay {
+     position: absolute;
+     width: 60%;
+     height: auto;
+     object-fit: cover;
+     display: none;  /* Inicialmente oculto */
+     justify-content: center;
+     align-items: center;
+     background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+     border: 10px solid #4CAF50;
+     border-radius: 10px;
+ }
+
+ /* Imagen capturada */
+ #capturedImage {
+     max-width: 100%;
+     height: auto;
+
+ }
+
 
 /* Controles */
 .controls {
@@ -123,3 +147,12 @@ main {
     background-color: #45a049;
     transform: translateY(-3px);
 }
+
+#progressSlider{
+    -webkit-appearance: none;  /* Quita el estilo predeterminado */
+    width: 100%;  /* Establece el ancho del slider */
+    height: 8px;  /* Establece la altura del slider */
+    background: #45a049;  /* Color de fondo del slider */
+    border-radius: 5px;  /* Bordes redondeados */
+    outline: none;  /* Elimina el borde cuando está enfocado */
+    }

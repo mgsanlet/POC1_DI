@@ -38,11 +38,15 @@
     <!-- Webcam y controles -->
     <div id="imageContainer" class="webcam-container">
         <video id="webcam" autoplay></video>
+        <!-- Contenedor para la imagen superpuesta -->
+        <div id="imageOverlay">
+            <img id="capturedImage" src="" alt="Imagen Capturada">
+        </div>
     </div>
 
     <div class="controls">
         <button id="captureButton">Capturar Imagen</button>
-        <input type="range" id="progressSlider" min="0" max="100" value="0">
+        <input type="range" id="progressSlider" min="0" max="100" value="0" disabled>
     </div>
 </main>
 
