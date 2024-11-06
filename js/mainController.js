@@ -12,7 +12,7 @@ class MainController {
     }
 
      async startCapture() {
-
+        this.#view.hideCapturedImage();
         const video = this.#video;
         let progress = 0;
         const updateProgress = () => {

@@ -18,7 +18,6 @@ class MainView {
 
     // Configura los eventos de la vista
     captureEvents() {
-        console.log("Loaded view.");
         this.#captureButton?.addEventListener('click', () => this.#controller.startCapture());
     }
 
@@ -40,11 +39,17 @@ class MainView {
         this.#progressSlider?.setAttribute('value', progress);
     }
 
-      displayCapturedImage(imageDataUrl) {
+    displayCapturedImage(imageDataUrl) {
 
-            this.#imageOverlay.style.display = 'flex'; // Hace visible el contenedor de la imagen
-            this.#capturedImage.src = imageDataUrl;
-        }
+        this.#imageOverlay.style.display = 'flex'; // Hace visible el contenedor de la imagen
+        this.#capturedImage.src = imageDataUrl;
+    }
+
+    hideCapturedImage() {
+
+        this.#imageOverlay.style.display = 'none'; // Hace visible el contenedor de la imagen
+        this.#capturedImage.src = '';
+    }
 }
 
 export { MainView };
