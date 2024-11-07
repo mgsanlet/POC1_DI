@@ -1,23 +1,37 @@
-import { MainView } from './mainView.js'
+import { MainView } from './mainView.js';
 
 class MainController {
     #view = null;
     #video = null;
+    #model = null;
+    #URL = "../model/";
 
     constructor() {
-        console.log('Starting app.');
+        this.init();
+    }
+
+    async init() {
+        console.log('Starting app');
         this.#view = new MainView(this);
         this.#video = document.getElementById('webcam');
         this.#view.captureEvents();
+
+        const modelURL = this.#URL + "model.json";
+        const metadataURL = this.#URL + "metadata.json";
+
+        // Cargar el modelo de Teachable Machine
+        this.#model = await tmImage.load(modelURL, metadataURL);
+        console.log("Modelo cargado exitosamente");
     }
 
-     async startCapture() {
+    async startCapture() {
         this.#view.hideCapturedImage();
         const video = this.#video;
         let progress = 0;
+
         const updateProgress = () => {
             progress += 1;
-            this.#view.updateSlider(progress);  // Actualiza el slider
+            this.#view.updateSlider(progress);
 
             if (progress >= 100) {
                 clearInterval(interval);
@@ -26,26 +40,46 @@ class MainController {
             }
         };
 
-        const interval = setInterval(updateProgress, 30);  // Define la función fuera del setInterval para mayor claridad
+        const interval = setInterval(updateProgress, 30);
     }
 
     captureImage(video) {
-            // Crea un canvas para capturar el cuadro actual del video
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Obtén la URL de la imagen en formato base64
-            const imageDataUrl = canvas.toDataURL('image/png');
+        const imageDataUrl = canvas.toDataURL('image/png');
+        this.#view.displayCapturedImage(imageDataUrl);
 
-            // Muestra la imagen capturada en la vista
-            this.#view.displayCapturedImage(imageDataUrl);
+        console.log("Imagen capturada y guardada");
+        this.predict(canvas); // Llama a la función de predicción con el canvas
+    }
 
-            console.log("Imagen capturada y guardada!");
+    async predict(canvas) {
+        if (!this.#model) {
+            console.error("Modelo no cargado");
+            return;
         }
 
+        const predictions = await this.#model.predict(canvas);
+        const classPrediction = null;
+        const threshold = 0.7;
+        predictions.forEach(prediction => {
+
+            if (prediction.probability > threshold){
+                // Se formatea y muestra el resultado de la predicción si es confiable (supera el umbral determinado)
+                const classPrediction = `${prediction.className}: ${(prediction.probability * 100).toFixed(0)}%`;
+                console.log(classPrediction);
+            }
+
+        });
+
+        if( classPrediction === null){
+            console.log("Desconocido")
+        }
+    }
 }
 
 window.onload = () => new MainController();
