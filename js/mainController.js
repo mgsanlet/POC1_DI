@@ -64,13 +64,13 @@ class MainController {
         }
 
         const predictions = await this.#model.predict(canvas);
-        const classPrediction = null;
+        let classPrediction = null;
         const threshold = 0.7;
         predictions.forEach(prediction => {
 
             if (prediction.probability > threshold){
                 // Se formatea y muestra el resultado de la predicción si es confiable (supera el umbral determinado)
-                const classPrediction = `${prediction.className}: ${(prediction.probability * 100).toFixed(0)}%`;
+                classPrediction = `${prediction.className}: ${(prediction.probability * 100).toFixed(0)}%`;
                 console.log(classPrediction);
             }
 
