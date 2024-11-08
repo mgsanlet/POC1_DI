@@ -1,10 +1,10 @@
-import { MainView } from './mainView.js';
+import { MainView } from './MainView.js';
+import { Model } from './Model.js';
 
 class MainController {
     #view = null;
     #video = null;
     #model = null;
-    #URL = "http://localhost/POC1_DI/model/";
 
     constructor() {
         this.init();
@@ -15,13 +15,7 @@ class MainController {
         this.#view = new MainView(this);
         this.#video = document.getElementById('webcam');
         this.#view.captureEvents();
-
-        const modelURL = this.#URL + "model.json";
-        const metadataURL = this.#URL + "metadata.json";
-
-        // Cargar el modelo de Teachable Machine
-        this.#model = await tmImage.load(modelURL, metadataURL);
-        console.log("Modelo cargado exitosamente");
+        this.#model = new Model();
     }
 
     async startCapture() {
@@ -54,29 +48,10 @@ class MainController {
         this.#view.displayCapturedImage(imageDataUrl);
 
         console.log("Imagen capturada");
-        this.predict(canvas, 0.85);
         // Llama a la función de predicción con el canvas
-    }
+        prediction = this.#model.predict(canvas, 0.85);
+        this.#view.displayPrediction(prediction);
 
-    async predict(canvas, threshold) {
-        if (!this.#model) {
-            console.error("Modelo no cargado");
-            return;
-        }
-
-        const predictions = await this.#model.predict(canvas);
-        let classPrediction = "Desconocido";
-        console.log("Predicción: ");
-        predictions.forEach(prediction => {
-            if (prediction.probability > threshold){
-                // Se formatea el resultado de la predicción si es confiable (supera el umbral determinado)
-                classPrediction = `${prediction.className}: ${(prediction.probability * 100).toFixed(0)}%`;
-            }
-
-        });
-
-        this.#view.displayPrediction(classPrediction);
-        console.log(classPrediction);
     }
 }
 
