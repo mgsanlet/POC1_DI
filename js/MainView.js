@@ -5,7 +5,7 @@ class MainView {
     #progressSlider = null;
     #imageOverlay = null;
     #capturedImage = null;
-    #isInitialState;
+    #isReadyForCaption;
 
     constructor(controller) {
         this.#controller = controller;
@@ -14,46 +14,56 @@ class MainView {
         this.#progressSlider = document.getElementById('progressSlider');
         this.#imageOverlay = document.getElementById('imageOverlay');
         this.#capturedImage = document.getElementById('capturedImage');
-        this.#isInitialState = true;
+        this.#isReadyForCaption = true;
         this.initializeWebcam();
     }
 
-    setInitialState(boolean){
-        this.#isInitialState = boolean;
-        if( !boolean ){
-            this.#captureButton.innerText = "Volver";
-        }
+    setWaitingMode(boolean){
+        this.#isReadyForCaption = false;
+        this.#captureButton.innerText = "Volver";
     }
 
     // Configura los eventos de la vista
     captureEvents() {
         this.#captureButton?.addEventListener('click', () => {
-        if(this.#isInitialState){
-            this.#controller.startCapture();
-        }else{
-            this.restartView();
-        }});
+            if(this.#isReadyForCaption){
+                this.#controller.startCapture();
+            }else{
+                this.restartView();
+            }});
     }
 
     restartView() {
         this.hideCapturedImage();
         this.#captureButton.innerText = "Capturar imagen";
         this.updateSlider(0);
-        this.#isInitialState = true;
+        this.#isReadyForCaption = true;
     }
 
     // Inicializa la webcam
     initializeWebcam() {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        const constraints = { video: true };
+        const getUserMedia = navigator.mediaDevices?.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;
+        //Se asegura de conectar con la webcam según distintos navegadores
+
+        if (!getUserMedia) {
+            console.error("La API getUserMedia no es compatible con este navegador.");
+            return;
+        }
+
+        getUserMedia.call(navigator.mediaDevices, constraints)
             .then(stream => {
-                if (this.#video) {
-                    this.#video.srcObject = stream;
-                }
-            })
+            if (this.#video) {
+                this.#video.srcObject = stream;
+            }
+        })
             .catch(error => {
-                console.error("Error al acceder a la webcam:", error);
-            });
+            console.error("Error al acceder a la webcam:", error);
+        });
     }
+
 
     // Actualiza el valor del slider
     updateSlider(progress) {
@@ -68,12 +78,8 @@ class MainView {
 
     hideCapturedImage() {
 
-        this.#imageOverlay.style.display = 'none'; // Hace visible el contenedor de la imagen
+        this.#imageOverlay.style.display = 'none'; // Hace invisible el contenedor de la imagen
         this.#capturedImage.src = '';
-    }
-
-    setCaptureButtonText( text ) {
-        this.#captureButton.innerText = "Volver";
     }
 }
 

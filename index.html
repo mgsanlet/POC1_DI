@@ -7,52 +7,42 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-
 </head>
 <body>
-<!-- Sidebar -->
 <div id="sidebar">
-
-    <div><h2>Instrucciones de Uso</h2>
-    <ul class="instructions-list">
-        <li>1.Asegúrate de conceder permiso para el uso de la webcam.</li>
-        <li>2.Toma una foto para dar comienzo a la detección.</li>
-        <li>3.Verás la predicción y el porcentaje de certeza.</li>
-    </ul>
+    <div>
+        <h2>Instrucciones de Uso</h2>
+        <ul class="instructions-list">
+            <li>Asegúrate de conceder permiso para el uso de la webcam.</li>
+            <li>Toma una foto para dar comienzo a la detección.</li>
+            <li>Verás la predicción y el porcentaje de certeza.</li>
+        </ul>
     </div>
-
-    <!-- Footer con GitHub -->
     <div id="sidebarFooter">
         <p>Con tecnología <strong>Teachable Machine</strong> y <strong>TensorFlow</strong></p>
         <p>2024/2025 - I.E.S. Albarregas - DAM 2B</p>
         <a href="https://github.com/mgsanlet/POC1_DI.git" target="_blank">
-            <img src="./img/github-mark-white.png" alt="GitHub Logo" width="25" height="25">
+            <img src="./img/github-mark-white.png" alt="Enlace al repositorio en GitHub" width="25" height="25">
         </a>
     </div>
 </div>
 
-<!-- Contenido principal -->
 <main>
-    <!-- Título centrado en la parte derecha -->
     <div id="main-header">
         <h1>Detección de Partes del Cuerpo</h1>
     </div>
-
-    <!-- Webcam y controles -->
     <div id="imageContainer" class="webcam-container">
         <video id="webcam" autoplay></video>
-        <!-- Contenedor para la imagen superpuesta -->
         <div id="imageOverlay">
-            <img id="capturedImage" src="" alt="Imagen Capturada">
+            <img id="capturedImage" src="" alt="Imagen capturada de la webcam">
         </div>
     </div>
-
     <div class="controls">
         <button id="captureButton">Capturar Imagen</button>
         <input type="range" id="progressSlider" min="0" max="100" value="0" disabled>
     </div>
 </main>
 
-<script type="module" src="js/mainController.js"></script>
+<script type="module" src="js/MainController.js"></script>
 </body>
 </html>

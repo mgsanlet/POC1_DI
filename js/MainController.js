@@ -11,7 +11,7 @@ class MainController {
     }
 
     async init() {
-        console.log('Starting app');
+        console.log('Iniciando aplicación');
         this.#view = new MainView(this);
         this.#video = document.getElementById('webcam');
         this.#view.captureEvents();
@@ -36,7 +36,7 @@ class MainController {
             if (progress >= 100) {
                 clearInterval(interval);
                 this.captureImage(video);
-                this.#view.setInitialState(false);
+                this.#view.setWaitingMode();
             }
         };
 
@@ -53,32 +53,29 @@ class MainController {
         const imageDataUrl = canvas.toDataURL('image/png');
         this.#view.displayCapturedImage(imageDataUrl);
 
-        console.log("Imagen capturada y guardada");
-        this.predict(canvas); // Llama a la función de predicción con el canvas
+        console.log("Imagen capturada");
+        this.predict(canvas, 0.85);
+        // Llama a la función de predicción con el canvas
     }
 
-    async predict(canvas) {
+    async predict(canvas, threshold) {
         if (!this.#model) {
             console.error("Modelo no cargado");
             return;
         }
 
         const predictions = await this.#model.predict(canvas);
-        let classPrediction = null;
-        const threshold = 0.7;
+        let classPrediction = "Desconocido";
+        console.log("Predicción: ");
         predictions.forEach(prediction => {
-
             if (prediction.probability > threshold){
-                // Se formatea y muestra el resultado de la predicción si es confiable (supera el umbral determinado)
+                // Se formatea el resultado de la predicción si es confiable (supera el umbral determinado)
                 classPrediction = `${prediction.className}: ${(prediction.probability * 100).toFixed(0)}%`;
-                console.log(classPrediction);
             }
 
         });
 
-        if( classPrediction === null){
-            console.log("Desconocido")
-        }
+        console.log(classPrediction);
     }
 }
 
