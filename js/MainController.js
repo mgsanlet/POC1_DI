@@ -4,7 +4,7 @@ class MainController {
     #view = null;
     #video = null;
     #model = null;
-    #URL = "../model/";
+    #URL = "http://localhost/POC1_DI/model/";
 
     constructor() {
         this.init();
@@ -75,6 +75,7 @@ class MainController {
 
         });
 
+        this.#view.displayPrediction(classPrediction);
         console.log(classPrediction);
     }
 }

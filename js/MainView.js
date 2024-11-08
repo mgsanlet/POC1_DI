@@ -5,6 +5,7 @@ class MainView {
     #progressSlider = null;
     #imageOverlay = null;
     #capturedImage = null;
+    #predictionMessage = null;
     #isReadyForCaption;
 
     constructor(controller) {
@@ -14,6 +15,7 @@ class MainView {
         this.#progressSlider = document.getElementById('progressSlider');
         this.#imageOverlay = document.getElementById('imageOverlay');
         this.#capturedImage = document.getElementById('capturedImage');
+        this.#predictionMessage = document.getElementById('predictionMessage');
         this.#isReadyForCaption = true;
         this.initializeWebcam();
     }
@@ -80,7 +82,21 @@ class MainView {
 
         this.#imageOverlay.style.display = 'none'; // Hace invisible el contenedor de la imagen
         this.#capturedImage.src = '';
+        this.hidePrediction(); /*oculta prediction con imagen*/
     }
+
+    /*Mostrar el mensaje de prediccion*/
+    displayPrediction(message) {
+        this.#predictionMessage.innerText = message;
+        this.#predictionMessage.style.display = 'block';
+    }
+
+    /*Ocultar el mensaje*/
+    hidePrediction() {
+        this.#predictionMessage.style.display = 'none';
+        this.#predictionMessage.innerText = '';
+    }
+
 }
 
 export { MainView };
