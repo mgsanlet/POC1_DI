@@ -5,6 +5,7 @@ class MainView {
     #progressSlider = null;
     #imageOverlay = null;
     #capturedImage = null;
+    #isInitialState;
 
     constructor(controller) {
         this.#controller = controller;
@@ -13,12 +14,32 @@ class MainView {
         this.#progressSlider = document.getElementById('progressSlider');
         this.#imageOverlay = document.getElementById('imageOverlay');
         this.#capturedImage = document.getElementById('capturedImage');
+        this.#isInitialState = true;
         this.initializeWebcam();
+    }
+
+    setInitialState(boolean){
+        this.#isInitialState = boolean;
+        if( !boolean ){
+            this.#captureButton.innerText = "Volver";
+        }
     }
 
     // Configura los eventos de la vista
     captureEvents() {
-        this.#captureButton?.addEventListener('click', () => this.#controller.startCapture());
+        this.#captureButton?.addEventListener('click', () => {
+        if(this.#isInitialState){
+            this.#controller.startCapture();
+        }else{
+            this.restartView();
+        }});
+    }
+
+    restartView() {
+        this.hideCapturedImage();
+        this.#captureButton.innerText = "Capturar imagen";
+        this.updateSlider(0);
+        this.#isInitialState = true;
     }
 
     // Inicializa la webcam
@@ -49,6 +70,10 @@ class MainView {
 
         this.#imageOverlay.style.display = 'none'; // Hace visible el contenedor de la imagen
         this.#capturedImage.src = '';
+    }
+
+    setCaptureButtonText( text ) {
+        this.#captureButton.innerText = "Volver";
     }
 }
 

@@ -36,7 +36,7 @@ class MainController {
             if (progress >= 100) {
                 clearInterval(interval);
                 this.captureImage(video);
-                this.#view.updateSlider(0);
+                this.#view.setInitialState(false);
             }
         };
 
