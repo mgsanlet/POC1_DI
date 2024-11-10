@@ -18,12 +18,6 @@ Requisitos
 Navegador moderno: Se recomienda usar un navegador como Chrome, Firefox o Edge que soporte WebRTC para el acceso a la
 cámara.
 Conexión a Internet: Para cargar el modelo entrenado y las bibliotecas necesarias.
-Instrucciones de Uso
-Permitir acceso a la cámara: Asegúrate de conceder permiso para el acceso a la cámara cuando se solicite al abrir la
-aplicación.
-Capturar una imagen: Haz clic en el botón "Capturar Imagen" para iniciar la predicción.
-Visualizar la predicción: Después de capturar la imagen, la predicción de las partes del cuerpo aparecerá en la interfaz
-junto con el porcentaje de certeza.
 
 Estructura del Proyecto
 /project-folder
@@ -32,11 +26,17 @@ Estructura del Proyecto
 ├── css/
 │   └── style.css        # Estilos CSS para la interfaz
 ├── js/
-│   ├── mainController.js # Lógica del controlador, gestiona los eventos y la captura
-│   └── mainView.js       # Lógica de la vista, gestiona la interfaz y los eventos del DOM
+│   ├── main-controller.js # Lógica del controlador, gestiona los eventos y la captura
+│   ├── main-view.js       # Lógica de la vista, gestiona la interfaz y los eventos del DOM
+│   └── model.js           # Inicialización del modelo y función de predicción
 ├── img/
 │   └── github-mark-white.png # Logo de GitHub para el footer
-└── README.txt           # Documentación del proyecto
+├── model/
+│   ├── metadata.json # Metadatos del modelo, incluye etiquetas y estructura de clases
+│   ├── model.json    # Configuración del modelo, define la arquitectura de la red neuronal
+│   └── weights.bin   # Pesos del modelo, parámetros aprendidos durante el entrenamiento
+└── doc/
+    └──README.txt           # Documentación del proyecto
 
 Tecnologías Utilizadas
 HTML5: Estructura básica de la página web.

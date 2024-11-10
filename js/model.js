@@ -3,10 +3,9 @@ class Model{
     #model = null;
 
     constructor(){
-        init();
     }
 
-    init(){
+    async init(){
         const modelURL = this.#URL + "model.json";
         const metadataURL = this.#URL + "metadata.json";
 
@@ -35,4 +34,6 @@ class Model{
         console.log(classPrediction);
         return classPrediction;
     }
+
 }
+export { Model };

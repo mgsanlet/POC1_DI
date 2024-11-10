@@ -1,5 +1,5 @@
-import { MainView } from './MainView.js';
-import { Model } from './Model.js';
+import { MainView } from './main-view.js';
+import { Model } from './model.js';
 
 class MainController {
     #view = null;
@@ -16,6 +16,7 @@ class MainController {
         this.#video = document.getElementById('webcam');
         this.#view.captureEvents();
         this.#model = new Model();
+        this.#model.init();
     }
 
     async startCapture() {
@@ -37,7 +38,7 @@ class MainController {
         const interval = setInterval(updateProgress, 30);
     }
 
-    captureImage(video) {
+    async captureImage(video) {
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -49,7 +50,7 @@ class MainController {
 
         console.log("Imagen capturada");
         // Llama a la función de predicción con el canvas
-        prediction = this.#model.predict(canvas, 0.85);
+        const prediction = await this.#model.predict(canvas, 0.85);
         this.#view.displayPrediction(prediction);
 
     }
